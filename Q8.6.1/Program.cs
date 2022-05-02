@@ -6,10 +6,11 @@ namespace Q8._6._1
     {
         static void Main(string[] args)
         {
+
             
 
-
             string filePath = @"C://Filex";
+            
             if (!File.Exists(filePath))
             {
                 try
@@ -17,15 +18,21 @@ namespace Q8._6._1
                     var directory = new DirectoryInfo(filePath);
                     foreach (FileInfo file in directory.GetFiles())
                     {
-
-                        file.Delete();
-
+                        
+                        var deltaTime = DateTime.Now - File.GetLastWriteTime(filePath); ;
+                        if (deltaTime == TimeSpan.FromMinutes(30))
+                        {
+                            file.Delete();
+                        }
 
                     }
                     foreach (DirectoryInfo direc in directory.GetDirectories())
                     {
-
-                        direc.Delete(true);
+                        var deltaTime = DateTime.Now - File.GetLastWriteTime(filePath);
+                        if (deltaTime == TimeSpan.FromMinutes(30))
+                        {
+                            direc.Delete(true);
+                        }
 
 
                     }
